@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weavatrix.com/schemas/clone-report/v1",
+  "title": "Weavatrix Clone Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "pairs", "families", "statistics"],
+  "properties": {
+    "schema": {"const": "https://weavatrix.com/schemas/clone-report/v1"},
+    "version": {"const": 1},
+    "pairs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/pair"}
+    },
+    "families": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/family"}
+    },
+    "statistics": {"$ref": "#/$defs/statistics"}
+  },
+  "$defs": {
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startByte", "endByte", "startLine", "endLine"],
+      "properties": {
+        "startByte": {"type": "integer", "minimum": 0},
+        "endByte": {"type": "integer", "minimum": 0},
+        "startLine": {"type": "integer", "minimum": 1},
+        "endLine": {"type": "integer", "minimum": 1}
+      }
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fragmentId", "path", "span"],
+      "properties": {
+        "fragmentId": {"type": "string"},
+        "path": {"type": "string"},
+        "span": {"$ref": "#/$defs/span"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strictEqual",
+        "renamedEqual",
+        "sharedFingerprints",
+        "fingerprintJaccardPermille",
+        "fingerprintContainmentPermille",
+        "editDistance",
+        "comparedTokens"
+      ],
+      "properties": {
+        "strictEqual": {"type": "boolean"},
+        "renamedEqual": {"type": "boolean"},
+        "sharedFingerprints": {"type": "integer", "minimum": 0},
+        "fingerprintJaccardPermille": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "fingerprintContainmentPermille": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "editDistance": {"type": "integer", "minimum": 0},
+        "comparedTokens": {"type": "integer", "minimum": 0}
+      }
+    },
+    "pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "similarityPermille", "left", "right", "evidence"],
+      "properties": {
+        "id": {"type": "string"},
+        "kind": {"enum": ["type1", "type2", "type3"]},
+        "similarityPermille": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "left": {"$ref": "#/$defs/location"},
+        "right": {"$ref": "#/$defs/location"},
+        "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "members", "pairIds"],
+      "properties": {
+        "id": {"type": "string"},
+        "members": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/location"}
+        },
+        "pairIds": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceFiles",
+        "sourceTokens",
+        "inputFragments",
+        "analyzedFragments",
+        "skippedSmallFragments",
+        "tokens",
+        "fingerprints",
+        "candidatePairs",
+        "exactBlockCandidates",
+        "verifiedPairs",
+        "suppressedBuckets",
+        "suppressedExactBuckets"
+      ],
+      "properties": {
+        "sourceFiles": {"type": "integer", "minimum": 0},
+        "sourceTokens": {"type": "integer", "minimum": 0},
+        "inputFragments": {"type": "integer", "minimum": 0},
+        "analyzedFragments": {"type": "integer", "minimum": 0},
+        "skippedSmallFragments": {"type": "integer", "minimum": 0},
+        "tokens": {"type": "integer", "minimum": 0},
+        "fingerprints": {"type": "integer", "minimum": 0},
+        "candidatePairs": {"type": "integer", "minimum": 0},
+        "exactBlockCandidates": {"type": "integer", "minimum": 0},
+        "verifiedPairs": {"type": "integer", "minimum": 0},
+        "suppressedBuckets": {"type": "integer", "minimum": 0},
+        "suppressedExactBuckets": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}
