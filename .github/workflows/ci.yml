@@ -11,7 +11,7 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
@@ -25,7 +25,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo test --all-targets --all-features
       - run: cargo test --no-default-features
@@ -33,14 +33,14 @@ jobs:
   msrv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@1.88
       - run: cargo check --all-features
 
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: llvm-tools-preview
