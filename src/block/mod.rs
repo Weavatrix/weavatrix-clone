@@ -1,6 +1,8 @@
+use crate::config::CloneConfig;
+use crate::error::{CloneError, Result};
 use crate::fast_hash::stable_bytes;
+use crate::model::{ClonePair, Language};
 use crate::token::{TokenPosition, lex};
-use crate::{CloneConfig, CloneError, ClonePair, Language, Result};
 
 mod detect;
 mod report;

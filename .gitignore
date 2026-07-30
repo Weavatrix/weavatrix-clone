@@ -1,2 +1,3 @@
 /target
-/.weavatrix
+/.weavatrix/*
+!/.weavatrix/architecture.json

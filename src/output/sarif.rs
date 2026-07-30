@@ -1,5 +1,5 @@
 use super::encode::{quoted, uri};
-use crate::{CloneKind, CloneLocation, ClonePair, CloneReport};
+use crate::model::{CloneKind, CloneLocation, ClonePair, CloneReport};
 use std::fmt::Write;
 
 #[must_use]

@@ -1,0 +1,100 @@
+{
+  "architectureContractV": 1,
+  "name": "Weavatrix Clone modular detection engine",
+  "style": "layered-library-with-adapters",
+  "enforcement": "strict",
+  "components": [
+    {
+      "id": "model",
+      "name": "Evidence and configuration model",
+      "paths": ["src/model", "src/config.rs", "src/error.rs"]
+    },
+    {
+      "id": "token",
+      "name": "Lexical and canonicalization core",
+      "paths": [
+        "src/token",
+        "src/canonical.rs",
+        "src/fast_hash.rs",
+        "src/fingerprint.rs"
+      ]
+    },
+    {
+      "id": "detection",
+      "name": "Candidate, verification, clustering, and accuracy engine",
+      "paths": [
+        "src/accuracy.rs",
+        "src/cluster.rs",
+        "src/detector.rs",
+        "src/index.rs",
+        "src/verify.rs"
+      ]
+    },
+    {
+      "id": "repository-adapter",
+      "name": "Optional repository scanning adapter",
+      "paths": ["src/block", "src/fragment.rs", "src/repository.rs"]
+    },
+    {
+      "id": "output",
+      "name": "Versioned report adapters",
+      "paths": ["src/output"]
+    },
+    {
+      "id": "facade",
+      "name": "Public crate facade and CLI",
+      "paths": ["src/lib.rs", "src/bin"]
+    },
+    {
+      "id": "verification",
+      "name": "Tests and benchmarks",
+      "paths": ["tests", "benches"]
+    }
+  ],
+  "dependencyRules": [
+    {
+      "id": "model-is-inward",
+      "action": "forbid",
+      "from": ["model"],
+      "to": ["token", "detection", "repository-adapter", "output", "facade"],
+      "kinds": ["imports", "re_exports", "depends_on"]
+    },
+    {
+      "id": "token-does-not-own-use-cases",
+      "action": "forbid",
+      "from": ["token"],
+      "to": ["detection", "repository-adapter", "output", "facade"],
+      "kinds": ["imports", "re_exports", "depends_on"]
+    },
+    {
+      "id": "detection-does-not-depend-on-adapters",
+      "action": "forbid",
+      "from": ["detection"],
+      "to": ["repository-adapter", "output", "facade"],
+      "kinds": ["imports", "re_exports", "depends_on"]
+    },
+    {
+      "id": "adapters-do-not-depend-on-facade",
+      "action": "forbid",
+      "from": ["repository-adapter", "output"],
+      "to": ["facade"],
+      "kinds": ["imports", "re_exports", "depends_on"]
+    }
+  ],
+  "budgets": {
+    "runtimeCycles": 0,
+    "maxFileLoc": 300,
+    "maxFunctionLoc": 100
+  },
+  "technologies": {
+    "required": ["rust"],
+    "forbidden": ["unsafe-rust"]
+  },
+  "exceptions": [],
+  "ratchet": {
+    "baseline": {
+      "fingerprints": [],
+      "metrics": {}
+    }
+  }
+}

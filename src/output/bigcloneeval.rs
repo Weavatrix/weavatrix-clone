@@ -1,4 +1,5 @@
-use crate::{CloneError, CloneLocation, CloneReport, Result};
+use crate::error::{CloneError, Result};
+use crate::model::{CloneLocation, CloneReport};
 use std::fmt::Write;
 
 /// Encodes clone pairs in `BigCloneEval`'s eight-column import format.

@@ -1,7 +1,7 @@
 use super::detect::RegionKey;
 use super::{BlockSource, BlockTokens};
 use crate::cluster::pair_id;
-use crate::{CloneEvidence, CloneKind, CloneLocation, ClonePair, Similarity, SourceSpan};
+use crate::model::{CloneEvidence, CloneKind, CloneLocation, ClonePair, Similarity, SourceSpan};
 
 pub(super) fn region_pair(
     region: RegionKey,

@@ -1,4 +1,4 @@
-use crate::Language;
+use crate::model::Language;
 
 pub(super) fn is_keyword(token: &str, language: Language) -> bool {
     if matches!(

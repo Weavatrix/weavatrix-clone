@@ -1,8 +1,10 @@
 use super::report::{line_count, region_pair};
 use super::{BlockSource, BlockTokens};
+use crate::config::CloneConfig;
+use crate::error::{CloneError, Result};
 use crate::fast_hash::{FastMap, FastSet, SeededBuildHasher};
 use crate::fingerprint::rolling_hashes;
-use crate::{CloneConfig, CloneError, ClonePair, Result};
+use crate::model::ClonePair;
 
 pub(super) struct WindowDetection {
     pub pairs: Vec<ClonePair>,

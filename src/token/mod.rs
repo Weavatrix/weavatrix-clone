@@ -1,4 +1,6 @@
-use crate::{CloneConfig, CloneError, Language, Result};
+use crate::config::CloneConfig;
+use crate::error::{CloneError, Result};
+use crate::model::Language;
 use std::collections::HashMap;
 
 mod keywords;

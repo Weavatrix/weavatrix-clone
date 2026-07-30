@@ -1,4 +1,5 @@
-use crate::{CloneConfig, CloneEvidence, CloneKind, DetectionMode, Similarity};
+use crate::config::CloneConfig;
+use crate::model::{CloneEvidence, CloneKind, DetectionMode, Similarity};
 
 #[derive(Debug)]
 pub(crate) struct Verified {
@@ -151,7 +152,7 @@ fn trim_equal_edges<'a>(left: &'a [u32], right: &'a [u32]) -> (&'a [u32], &'a [u
 
 #[cfg(test)]
 mod tests {
-    use super::Verifier;
+    use crate::verify::Verifier;
 
     #[test]
     fn bounded_distance_matches_expected_edits() {

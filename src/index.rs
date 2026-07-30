@@ -1,5 +1,7 @@
+use crate::config::CloneConfig;
+use crate::error::{CloneError, Result};
 use crate::fast_hash::{FastMap, SeededBuildHasher};
-use crate::{CloneConfig, CloneError, Result, Similarity};
+use crate::model::Similarity;
 
 #[derive(Debug, Clone, Copy)]
 pub(crate) struct Candidate {

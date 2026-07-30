@@ -1,5 +1,6 @@
 use super::{Interner, lex, tokenize};
-use crate::{CloneConfig, Language};
+use crate::config::CloneConfig;
+use crate::model::Language;
 
 #[test]
 fn non_ascii_punctuation_always_advances() {

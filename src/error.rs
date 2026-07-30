@@ -57,7 +57,7 @@ impl Error for CloneError {}
 
 #[cfg(test)]
 mod tests {
-    use super::CloneError;
+    use crate::error::CloneError;
 
     #[test]
     fn formats_every_error_variant() {

@@ -1,4 +1,4 @@
-use crate::ClonePair;
+use crate::model::{ClonePair, SourceSpan};
 
 pub(crate) fn suppress_contained(mut pairs: Vec<ClonePair>) -> Vec<ClonePair> {
     pairs.sort_by(compare_for_suppression);
@@ -57,14 +57,16 @@ fn dominates(existing: &ClonePair, candidate: &ClonePair) -> bool {
         && contains(existing.right.span, candidate.right.span)
 }
 
-const fn contains(outer: crate::SourceSpan, inner: crate::SourceSpan) -> bool {
+const fn contains(outer: SourceSpan, inner: SourceSpan) -> bool {
     outer.start_byte <= inner.start_byte && outer.end_byte >= inner.end_byte
 }
 
 #[cfg(test)]
 mod tests {
-    use super::suppress_contained;
-    use crate::{CloneEvidence, CloneKind, CloneLocation, ClonePair, Similarity, SourceSpan};
+    use crate::canonical::suppress_contained;
+    use crate::model::{
+        CloneEvidence, CloneKind, CloneLocation, ClonePair, Similarity, SourceSpan,
+    };
 
     #[test]
     fn larger_equivalent_pair_suppresses_its_windows() {

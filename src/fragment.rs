@@ -1,4 +1,5 @@
-use crate::{Language, Result, SourceFragment, SourceSpan};
+use crate::error::Result;
+use crate::model::{Language, SourceFragment, SourceSpan};
 
 pub(crate) fn fragment_file(
     path: &str,
@@ -170,8 +171,8 @@ fn looks_like_callable(line: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::fragment_file;
-    use crate::Language;
+    use crate::fragment::fragment_file;
+    use crate::model::Language;
 
     #[test]
     fn extracts_brace_and_python_functions() {

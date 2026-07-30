@@ -2,7 +2,15 @@
 
 All notable changes to this project are documented here.
 
-## 0.1.0 - Unreleased
+## 0.1.2 - 2026-07-30
+
+- Normalize the crate into one idiomatic module-tree form with no parallel
+  `foo.rs` and `foo/` ownership.
+- Add a strict, zero-baseline architecture contract with 300-line file,
+  100-line function, and zero-runtime-cycle release budgets.
+- Track the released `weavatrix-scan` 0.4.6 repository adapter.
+
+## 0.1.1 - 2026-07-29
 
 - Add deterministic Type-1 exact block detection.
 - Add identifier-normalized Type-2 function detection.

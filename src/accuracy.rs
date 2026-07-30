@@ -1,4 +1,5 @@
-use crate::{CloneError, CloneKind, CloneLocation, CloneReport, Result, Similarity};
+use crate::error::{CloneError, Result};
+use crate::model::{CloneKind, CloneLocation, ClonePair, CloneReport, Similarity};
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -133,7 +134,7 @@ impl AccuracyGate {
     #[must_use]
     pub fn evaluate(self, report: &CloneReport, oracle: &[OraclePair]) -> AccuracyReport {
         let mut accuracy = AccuracyReport::default();
-        let mut by_paths = HashMap::<(&str, &str), Vec<&crate::ClonePair>>::new();
+        let mut by_paths = HashMap::<(&str, &str), Vec<&ClonePair>>::new();
         for candidate in &report.pairs {
             by_paths
                 .entry(path_key(&candidate.left.path, &candidate.right.path))
@@ -185,11 +186,7 @@ fn path_key<'a>(left: &'a str, right: &'a str) -> (&'a str, &'a str) {
     }
 }
 
-fn pair_matches(
-    candidate: &crate::ClonePair,
-    expected: &OraclePair,
-    threshold: Similarity,
-) -> bool {
+fn pair_matches(candidate: &ClonePair, expected: &OraclePair, threshold: Similarity) -> bool {
     (covers(&candidate.left, &expected.left, threshold)
         && covers(&candidate.right, &expected.right, threshold))
         || (covers(&candidate.left, &expected.right, threshold)

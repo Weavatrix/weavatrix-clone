@@ -1,5 +1,7 @@
 use super::encode::quoted;
-use crate::{CloneEvidence, CloneFamily, CloneLocation, ClonePair, CloneReport, CloneStatistics};
+use crate::model::{
+    CloneEvidence, CloneFamily, CloneKind, CloneLocation, ClonePair, CloneReport, CloneStatistics,
+};
 use std::fmt::Write;
 
 pub const JSON_SCHEMA: &str = "https://weavatrix.com/schemas/clone-report/v1";
@@ -31,9 +33,9 @@ fn pair(output: &mut String, pair: &ClonePair) {
     quoted(
         output,
         match pair.kind {
-            crate::CloneKind::Type1 => "type1",
-            crate::CloneKind::Type2 => "type2",
-            crate::CloneKind::Type3 => "type3",
+            CloneKind::Type1 => "type1",
+            CloneKind::Type2 => "type2",
+            CloneKind::Type3 => "type3",
         },
     );
     let _ = write!(

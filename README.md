@@ -1,6 +1,11 @@
 # Weavatrix Clone
 
-Deterministic, evidence-carrying code clone detection for Rust applications.
+Find duplicate code with evidence you can inspect, reproduce, and gate in CI.
+
+`weavatrix-clone` is the deterministic Type-1/2/3 clone engine used by
+Weavatrix. It turns token-level matches into stable pairs and families with
+source spans, similarity proof, safety limits, JSON/SARIF output, and an
+explicit review boundary for semantic Type-4 candidates.
 
 `weavatrix-clone` separates clone detection from search and semantic retrieval:
 
@@ -95,7 +100,7 @@ Disable all optional dependencies for the fragment-only core:
 
 ```toml
 [dependencies]
-weavatrix-clone = { version = "0.1.1", default-features = false }
+weavatrix-clone = { version = "0.1.2", default-features = false }
 ```
 
 ## CLI
@@ -167,6 +172,25 @@ Public references:
 - [SourcererCC](https://github.com/Mondego/SourcererCC)
 - [Open-NiCad](https://github.com/CordyJ/Open-NiCad)
 - [BigCloneBench](https://github.com/clonebench/BigCloneBench)
+
+## Architecture
+
+The crate is a modular library, not a monolithic scanner:
+
+| Layer | Responsibility |
+|---|---|
+| `model` | stable fragments, locations, evidence, pairs, families, configuration, and errors |
+| `token` | lossless lexical profiles, canonicalization, hashing, and fingerprints |
+| `detection` | candidate indexing, Type-1/2/3 verification, clustering, and accuracy gates |
+| `repository adapter` | optional `weavatrix-scan` traversal and source-block extraction |
+| `output` | versioned JSON, SARIF 2.1.0, and BigCloneEval encoders |
+| `facade / CLI` | the public Rust API and bounded command-line adapter |
+
+Dependencies point inward: output and repository adapters consume the core;
+the core never depends on CLI or report presentation. The checked-in
+`.weavatrix/architecture.json` enforces zero runtime cycles, files no larger
+than 300 physical lines, functions no larger than 100 physical lines, and no
+grandfathered exceptions.
 
 ## Correctness gates
 

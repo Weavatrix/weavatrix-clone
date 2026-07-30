@@ -4,16 +4,16 @@ version = 4
 
 [[package]]
 name = "weavatrix-clone"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "weavatrix-scan",
 ]
 
 [[package]]
 name = "weavatrix-scan"
-version = "0.4.2"
+version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cd6d6df5f6bb9e67d121d710c5cab9a6aed3e5f4a13f35783f99c362cdff88f"
+checksum = "f411362c24f268e733b5820a6c118961a9954c9d9d8e3f23a4b9c8721f084557"
 dependencies = [
  "winapi-util",
 ]

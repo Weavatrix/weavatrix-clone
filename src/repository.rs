@@ -1,10 +1,10 @@
 use crate::block::{BlockDetection, BlockSource, detect_blocks};
 use crate::canonical::suppress_contained;
 use crate::cluster::families_for_pairs;
+use crate::detector::CloneDetector;
+use crate::error::{CloneError, Result};
 use crate::fragment::fragment_file;
-use crate::{
-    CloneDetector, CloneError, CloneReport, DetectionMode, Language, Result, SourceFragment,
-};
+use crate::model::{CloneReport, DetectionMode, Language, SourceFragment};
 use std::sync::{Arc, Mutex};
 use weavatrix_scan::{
     ContentDiscoveryMode, ContentFileStatus, ContentValidationPolicy, ContentVisitControl,

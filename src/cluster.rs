@@ -1,4 +1,4 @@
-use crate::{CloneFamily, CloneLocation, ClonePair};
+use crate::model::{CloneFamily, CloneLocation, ClonePair};
 use std::collections::HashMap;
 
 #[derive(Debug)]

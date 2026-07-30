@@ -95,7 +95,7 @@ impl<T> ExactSizeIterator for RollingHashes<'_, T> where T: Copy + Into<u64> {}
 
 #[cfg(test)]
 mod tests {
-    use super::winnow;
+    use crate::fingerprint::winnow;
 
     #[test]
     fn winnowing_is_stable_and_change_sensitive() {

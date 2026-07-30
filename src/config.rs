@@ -1,4 +1,5 @@
-use crate::{CloneError, DetectionMode, Result, Similarity};
+use crate::error::{CloneError, Result};
+use crate::model::{DetectionMode, Similarity};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CloneConfig {

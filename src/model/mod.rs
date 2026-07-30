@@ -1,4 +1,4 @@
-use crate::{CloneError, Result};
+use crate::error::{CloneError, Result};
 use std::{cmp::Ordering, path::Path};
 
 #[cfg(test)]

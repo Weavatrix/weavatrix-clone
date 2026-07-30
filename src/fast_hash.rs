@@ -70,7 +70,7 @@ const fn mix(mut value: u64) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use super::{FastMap, SeededBuildHasher};
+    use crate::fast_hash::{FastMap, SeededBuildHasher};
 
     #[test]
     fn map_handles_distinct_and_repeated_integer_keys() {
