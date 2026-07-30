@@ -100,7 +100,7 @@ Disable all optional dependencies for the fragment-only core:
 
 ```toml
 [dependencies]
-weavatrix-clone = { version = "0.1.2", default-features = false }
+weavatrix-clone = { version = "0.1.3", default-features = false }
 ```
 
 ## CLI

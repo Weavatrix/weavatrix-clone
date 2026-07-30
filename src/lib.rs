@@ -22,6 +22,7 @@ mod token;
 mod verify;
 
 pub use accuracy::{AccuracyCounts, AccuracyGate, AccuracyReport, OracleLocation, OraclePair};
+pub use cluster::families_for_pairs;
 pub use config::CloneConfig;
 pub use detector::CloneDetector;
 pub use error::{CloneError, Result};

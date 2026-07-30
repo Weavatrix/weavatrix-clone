@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here.
 
+## 0.1.3 - 2026-07-30
+
+- Expose deterministic clone-family rebuilding for callers that filter pair
+  results while preserving coherent connected components and stable IDs.
+
 ## 0.1.2 - 2026-07-30
 
 - Normalize the crate into one idiomatic module-tree form with no parallel

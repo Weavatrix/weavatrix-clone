@@ -51,7 +51,16 @@ pub(crate) fn families(locations: &[CloneLocation], pairs: &[PairMembership]) ->
     result
 }
 
-pub(crate) fn families_for_pairs(pairs: &[ClonePair]) -> Vec<CloneFamily> {
+/// Rebuilds deterministic clone families from a possibly filtered pair set.
+///
+/// Each returned family is one connected component of the pair graph. Members
+/// and pair identifiers are deduplicated and sorted, and both families and
+/// their stable identifiers are independent of input order.
+///
+/// This is useful after a caller filters a [`CloneReport`](crate::CloneReport):
+/// pass the retained pairs here to keep `families` coherent with `pairs`.
+#[must_use]
+pub fn families_for_pairs(pairs: &[ClonePair]) -> Vec<CloneFamily> {
     let mut locations = Vec::<CloneLocation>::new();
     let mut indexes = HashMap::<&CloneLocation, usize>::new();
     let mut memberships = Vec::with_capacity(pairs.len());
