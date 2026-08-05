@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## 0.1.4 - 2026-08-05
+
+- Report block clones on the lines both sites match completely. A token run
+  starts and ends wherever the match does, which is regularly mid-line, and
+  two sites rarely break their lines the same way; the reported ranges
+  therefore carried text the matcher never compared, so a byte comparison of
+  a `strict_equal` pair showed differences the evidence appeared to deny.
+  Both sites are now snapped to the same line-aligned sub-run.
+
 ## 0.1.3 - 2026-07-30
 
 - Expose deterministic clone-family rebuilding for callers that filter pair
