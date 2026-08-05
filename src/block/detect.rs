@@ -1,4 +1,4 @@
-use super::report::{line_count, region_pair};
+use super::report::{line_count, region_pair, snap_to_lines};
 use super::{BlockSource, BlockTokens};
 use crate::config::CloneConfig;
 use crate::error::{CloneError, Result};
@@ -140,6 +140,8 @@ impl WindowState {
         if !self.seen.insert(region) {
             return;
         }
+        // Report only the lines both sites match completely.
+        let region = snap_to_lines(region, tokenized).unwrap_or(region);
         let pair = region_pair(region, sources, tokenized, config.min_tokens);
         if line_count(pair.left.span) >= min_lines && line_count(pair.right.span) >= min_lines {
             self.pairs.push(pair);
