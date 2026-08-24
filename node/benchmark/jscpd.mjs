@@ -20,6 +20,10 @@ const fillers = Number(process.env.WV_CLONE_FILLERS ?? 480)
 const rounds = Number(process.env.WV_CLONE_ROUNDS ?? 5)
 const minTokens = Number(process.env.WV_CLONE_MIN_TOKENS ?? 50)
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'weavatrix-clone-bench-'))
+// jscpd's output directory must live outside the scanned corpus. Leaving it
+// inside makes jscpd re-crawl its own growing output on every later round,
+// which inflates its time and our ratio.
+const jscpdOutput = fs.mkdtempSync(path.join(os.tmpdir(), 'weavatrix-clone-bench-jscpd-'))
 // jscpd resolves its input through fast-glob, which only accepts POSIX
 // separators, so a Windows temporary directory has to be converted.
 const globRoot = root.split(path.sep).join('/')
@@ -96,7 +100,7 @@ async function jscpd() {
     reporters: [],
     minTokens,
     minLines: 5,
-    output: path.join(root, '.jscpd-output'),
+    output: jscpdOutput,
   })
   return clones.map((clone) =>
     pairKey(path.basename(clone.duplicationA.sourceId), path.basename(clone.duplicationB.sourceId)))
@@ -137,4 +141,5 @@ try {
   }, null, 2))
 } finally {
   fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(jscpdOutput, { recursive: true, force: true })
 }
