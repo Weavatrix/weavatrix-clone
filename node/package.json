@@ -1,0 +1,43 @@
+{
+  "name": "weavatrix-clone",
+  "version": "0.1.5",
+  "description": "Evidence-first Rust Type-1/2/3 code clone detection for Node.js and Bun",
+  "license": "MIT",
+  "author": "Sergii Ziborov <sergii.ziborov@gmail.com>",
+  "homepage": "https://weavatrix.com/ecosystem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weavatrix/weavatrix-clone.git",
+    "directory": "node"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/", "index.js", "index.d.ts", "*.node", "README.md"],
+  "engines": { "node": ">=18" },
+  "publishConfig": { "registry": "https://registry.npmjs.org/", "access": "public" },
+  "keywords": ["clone-detection", "duplicate-code", "copy-paste", "sarif", "rust", "node-api", "bun"],
+  "napi": {
+    "binaryName": "weavatrix-clone",
+    "targets": [
+      "x86_64-pc-windows-msvc",
+      "aarch64-pc-windows-msvc",
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu"
+    ]
+  },
+  "scripts": {
+    "build": "napi build --platform --release --no-js",
+    "build:debug": "napi build --platform --no-js",
+    "build:windows": "napi build --platform --release --no-js --target x86_64-pc-windows-msvc",
+    "build:windows:debug": "napi build --platform --no-js --target x86_64-pc-windows-msvc",
+    "test": "node --test test/clone.test.js",
+    "test:bun": "bun test ./test",
+    "bench": "node benchmark/jscpd.mjs"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.8.6",
+    "jscpd": "^4.0.5"
+  }
+}

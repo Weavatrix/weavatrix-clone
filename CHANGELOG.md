@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+- Publish one self-contained `weavatrix-clone` npm package for Node.js 18+ and
+  Bun 1.4+, carrying all six native bindings (Windows, macOS, and glibc Linux
+  on x64 and arm64) in a single tarball with no install script, no download,
+  and no public platform-package names.
+- Expose `detectRepository`, `detectRepositorySync`, and `detectFragments` with
+  TypeScript types, plus a report object that carries the full clone-report
+  document and calls the same Rust JSON, SARIF, and BigCloneEval encoders the
+  CLI uses.
+- Add the `Node and Bun native bindings` and `Publish npm package` workflows
+  and a ground-truth benchmark against `jscpd` 4.3.0 that reports recall on
+  planted exact and renamed duplicate pairs, not only elapsed time.
+
 ## 0.1.4 - 2026-08-05
 
 - Report block clones on the lines both sites match completely. A token run

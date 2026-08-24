@@ -1,3 +1,6 @@
 /target
 /.weavatrix/*
 !/.weavatrix/architecture.json
+/node/target/
+/node/node_modules/
+/node/*.node

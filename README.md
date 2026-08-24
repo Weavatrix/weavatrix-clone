@@ -3,6 +3,7 @@
 [![CI](https://github.com/Weavatrix/weavatrix-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/Weavatrix/weavatrix-clone/actions/workflows/ci.yml)
 [![crates.io](https://img.shields.io/crates/v/weavatrix-clone.svg)](https://crates.io/crates/weavatrix-clone)
 [![docs.rs](https://docs.rs/weavatrix-clone/badge.svg)](https://docs.rs/weavatrix-clone)
+[![npm](https://img.shields.io/npm/v/weavatrix-clone.svg)](https://www.npmjs.com/package/weavatrix-clone)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Part of the [Weavatrix ecosystem](https://weavatrix.com/ecosystem): deterministic clone evidence for AI software agents.
@@ -109,6 +110,45 @@ Disable all optional dependencies for the fragment-only core:
 [dependencies]
 weavatrix-clone = { version = "0.1.3", default-features = false }
 ```
+
+## Node.js and Bun
+
+The `weavatrix-clone` npm package exposes the same Rust engine through
+Node-API. It is not a JavaScript port, spawns no process, and writes nothing —
+detection is read-only:
+
+```console
+npm install weavatrix-clone
+# or: bun add weavatrix-clone
+```
+
+```js
+const { detectRepository, detectFragments } = require('weavatrix-clone')
+
+const report = await detectRepository(process.cwd(), { minTokens: 50 })
+console.log(report.pairCount, 'pairs in', report.familyCount, 'families')
+console.log(report.toSarif())
+
+// Or detect over text the caller already holds; no filesystem access.
+const inline = detectFragments([
+  { id: 'a', path: 'src/a.ts', text: sourceA },
+  { id: 'b', path: 'src/b.ts', text: sourceB },
+])
+```
+
+`detectRepository` runs off the JavaScript event loop, `detectRepositorySync`
+blocks, and every report exposes `toJsonString()`, `toSarif()`, and
+`toBigCloneEval()` from the same Rust encoders the CLI uses.
+
+One self-contained package supports Node.js 18+ and Bun 1.4+ and carries native
+binaries for Windows, macOS, and glibc Linux on x64 and arm64 without an
+install script, a download, or public platform-package names.
+
+The [Node/Bun benchmark report](node/benchmark/RESULTS.md) compares against
+`jscpd` 4.3.0 on a 720-file corpus with planted ground truth. Both tools found
+all 60 byte-identical pairs with no unplanted pairs; Weavatrix also found all
+60 renamed pairs, which `jscpd` does not detect, and was 23.12x faster on Node
+and 16.66x faster on Bun.
 
 ## CLI
 
