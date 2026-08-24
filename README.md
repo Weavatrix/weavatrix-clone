@@ -1,5 +1,12 @@
 # Weavatrix Clone
 
+[![CI](https://github.com/Weavatrix/weavatrix-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/Weavatrix/weavatrix-clone/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/weavatrix-clone.svg)](https://crates.io/crates/weavatrix-clone)
+[![docs.rs](https://docs.rs/weavatrix-clone/badge.svg)](https://docs.rs/weavatrix-clone)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Part of the [Weavatrix ecosystem](https://weavatrix.com/ecosystem): deterministic clone evidence for AI software agents.
+
 Find duplicate code with evidence you can inspect, reproduce, and gate in CI.
 
 `weavatrix-clone` is the deterministic Type-1/2/3 clone engine used by
